@@ -1,0 +1,123 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #4e54c8;
+    padding: 1rem 0;
+    transition: all 0.3s ease;
+    z-index: 1000;
+  }
+  
+  .navbar.scrolled {
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .logo-icon {
+    background-color: #4CAF50;
+    color: white;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-size: 24px;
+  }
+  
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .brand-name {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: white;
+  }
+  
+  .navbar.scrolled .brand-name {
+    color: #333;
+  }
+  
+  .tagline {
+    font-size: 0.7rem;
+    color: #4CAF50;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+  
+  .navbar.scrolled .nav-links a {
+    color: #333;
+  }
+  
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: #4CAF50;
+  }
+  
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  
+  .search-icon {
+    cursor: pointer;
+    color: white;
+  }
+  
+  .navbar.scrolled .search-icon {
+    color: #666;
+  }
+  
+  .book-btn {
+    background-color: #ff6b6b;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s;
+  }
+  
+  .book-btn:hover {
+    background-color: #ff5252;
+  }
+  
+  @media (max-width: 768px) {
+    .nav-links {
+      display: none;
+    }
+    
+    .navbar-container {
+      padding: 0 1rem;
+    }
+  }
