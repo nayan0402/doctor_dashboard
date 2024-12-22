@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Users, Wallet, HelpCircle, LogOut } from 'lucide-react';
+import { LayoutDashboard, Users, Wallet, HelpCircle, LogOut, UserPlus } from 'lucide-react';
 import './Dashboard.css';
+import PatientForm from './PatientForm';
 
 const Dashboard = () => {
   const [userName, setUserName] = useState('');
+  const [isFormOpen, setIsFormOpen] = useState(false);
   const navigate = useNavigate();
 
-  // Fetch the user's name from the backend
   useEffect(() => {
     const fetchUserName = async () => {
       try {
         const response = await fetch('http://localhost:5000/auth/status', {
-          credentials: 'include', // Ensure session cookies are sent
+          credentials: 'include',
         });
         const data = await response.json();
         if (data.isAuthenticated && data.user) {
-          setUserName(data.user.displayName); // Set the name from the backend
+          setUserName(data.user.displayName);
         }
       } catch (err) {
         console.error('Error fetching user data:', err);
@@ -25,7 +26,6 @@ const Dashboard = () => {
   
     fetchUserName();
   }, []);
-  
 
   const handleLogout = async () => {
     try {
@@ -57,10 +57,10 @@ const Dashboard = () => {
             <span>Dashboard</span>
           </button>
 
-          <button className="nav-item">
+          <button className="nav-item" onClick={() => navigate('/patients')}>
             <Users className="nav-icon" />
             <span>Patients</span>
-          </button>
+            </button>
 
           <button className="nav-item">
             <Wallet className="nav-icon" />
@@ -85,7 +85,21 @@ const Dashboard = () => {
             <h1>Good Morning, {userName ? userName : 'User'}</h1>
             <p>Manage your hospital activities and patient records</p>
           </div>
+          <button 
+            className="add-patient-btn"
+            onClick={() => setIsFormOpen(true)}
+          >
+            <UserPlus className="btn-icon" />
+            Add Patient
+          </button>
         </div>
+
+        {isFormOpen && (
+          <PatientForm 
+            isOpen={isFormOpen} 
+            onClose={() => setIsFormOpen(false)}
+          />
+        )}
       </div>
     </div>
   );

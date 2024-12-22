@@ -4,6 +4,7 @@ import Navbar from './Navbar';
 import Hero from './Hero';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from './Dashboard';
+import Patients from './Patients';
 
 const Home = () => {
   return (
@@ -62,6 +63,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/patients" element={<Patients />} />
         </Routes>
       </div>
     </Router>

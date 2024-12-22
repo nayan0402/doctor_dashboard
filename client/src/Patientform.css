@@ -1,0 +1,152 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  .modal-content {
+    background-color: white;
+    border-radius: 12px;
+    padding: 24px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: slideIn 0.3s ease-out;
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  
+  .modal-header h2 {
+    margin: 0;
+    color: #333;
+    font-size: 1.5rem;
+  }
+  
+  .close-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    color: #666;
+    transition: color 0.2s;
+  }
+  
+  .close-button:hover {
+    color: #333;
+  }
+  
+  .patient-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .form-row {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .form-group label {
+    font-weight: 500;
+    color: #555;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+  }
+  
+  .form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+  
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 24px;
+  }
+  
+  .cancel-btn,
+  .submit-btn {
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .cancel-btn {
+    background-color: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    color: #374151;
+  }
+  
+  .cancel-btn:hover {
+    background-color: #e81313;
+  }
+  
+  .submit-btn {
+    background-color: #2563eb;
+    border: none;
+    color: white;
+  }
+  
+  .submit-btn:hover {
+    background-color: #a6abba;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideIn {
+    from {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  

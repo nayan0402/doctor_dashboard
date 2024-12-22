@@ -7,7 +7,7 @@ const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
 const User = require('./models/User');
-
+const Patient = require('./models/Patient');
 const app = express();
 const PORT = 5000;
 
@@ -98,7 +98,6 @@ app.get('/auth/google/callback',
 
 app.get('/auth/status', (req, res) => {
     if (req.isAuthenticated()) {
-        // Send user info including the displayName
         res.json({ isAuthenticated: true, user: req.user });
     } else {
         res.json({ isAuthenticated: false });
@@ -114,7 +113,46 @@ app.get('/auth/logout', (req, res) => {
     });
 });
 
-app.use((req, res, next) => {
+// Patient Routes - Add these BEFORE the 404 handler
+app.post('/api/patients', async (req, res) => {
+    console.log('Received patient data:', req.body); // Debug log
+    console.log('Auth status:', req.isAuthenticated()); // Debug log
+
+    if (!req.isAuthenticated()) {
+        return res.status(401).json({ error: 'Not authenticated' });
+    }
+
+    try {
+        const patient = new Patient({
+            ...req.body,
+            doctorId: req.user._id
+        });
+
+        await patient.save();
+        console.log('Patient saved:', patient); // Debug log
+        res.status(201).json(patient);
+    } catch (err) {
+        console.error('Error creating patient:', err);
+        res.status(500).json({ error: 'Error creating patient', details: err.message });
+    }
+});
+
+app.get('/api/patients', async (req, res) => {
+    if (!req.isAuthenticated()) {
+        return res.status(401).json({ error: 'Not authenticated' });
+    }
+
+    try {
+        const patients = await Patient.find({ doctorId: req.user._id });
+        res.json(patients);
+    } catch (err) {
+        console.error('Error fetching patients:', err);
+        res.status(500).json({ error: 'Error fetching patients' });
+    }
+});
+
+// 404 handler - Keep this as the last route
+app.use((req, res) => {
     res.status(404).json({ error: 'Not Found' });
 });
 
