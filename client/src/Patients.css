@@ -1,0 +1,177 @@
+/* Patients.css */
+.patients-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f9fafb;
+}
+
+.header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header {
+    flex: 1;
+}
+
+.patients-title {
+    font-size: 36px;
+    margin: 0;
+    color: #14b8a6;
+}
+
+.subtitle {
+    font-size: 16px;
+    color: #555;
+}
+
+.search-bar {
+    padding: 12px 15px 12px 40px; /* More spacious padding */
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 250px;
+    position: relative;
+    color: #333; /* Default text color */
+    transition: all 0.3s ease;
+}
+
+.search-bar:focus {
+    outline: none;
+    color: #14b8a6; /* Change text color on focus */
+    border-color: #14b8a6; /* Border color when focused */
+}
+
+.search-bar::before {
+    content: '\1F50D'; /* Unicode for magnifying glass */
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #14b8a6; /* Search icon color */
+}
+
+.patients-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+    color: black;
+    visibility: hidden; /* Hide initially */
+    opacity: 0; /* Hide initially */
+    transition: visibility 1s, opacity 1s ease-in-out; /* Smooth transition for appearance */
+}
+
+.patients-table.visible {
+    visibility: visible;
+    opacity: 1; /* Show table */
+}
+
+.patients-table th, .patients-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.patients-table th {
+    background-color: #14b8a6;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* When clicked, highlight the active column */
+.patients-table th.active {
+    background-color: #12a38b;
+    color: #fff;
+    box-shadow: 0 0 8px rgba(20, 184, 166, 0.7);
+}
+
+/* Dim inactive columns */
+.patients-table th.inactive {
+    background-color: #14b8a6;
+    color: #ddd;
+}
+
+.patients-table td {
+    background-color: white;
+    color: black;
+}
+
+.sort-icon {
+    margin-left: 5px;
+    opacity: 0.5; /* Default opacity for all */
+    transition: opacity 0.3s ease;
+}
+
+.sort-icon.active {
+    opacity: 1; /* Highlight the active icon */
+}
+
+.clickable-row:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+.loading-message {
+    text-align: center;
+    font-size: 20px;
+    color: #14b8a6;
+}
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0; /* Initially hidden */
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.popup.show {
+    opacity: 1; /* Show popup */
+    visibility: visible;
+}
+
+.popup-content {
+    background-color: white;
+    padding: 30px; /* More spacious padding */
+    max-width: 500px;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: #000000;
+    cursor: pointer;
+}
+
+/* Hover effect on sort column */
+.patients-table th:hover {
+    background-color: #12a38b;
+    color: #fff;
+}
+
+/* Smooth transition for table */
+.patients-table th, .patients-table td {
+    transition: all 0.3s ease;
+}

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { LayoutDashboard, Users, Wallet, HelpCircle, LogOut, UserPlus } from 'lucide-react';
 import './Dashboard.css';
 import PatientForm from './PatientForm';
+import Patients from './Patients'; // Import Patients component
 
 const Dashboard = () => {
   const [userName, setUserName] = useState('');
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const navigate = useNavigate();
+  const [activeSection, setActiveSection] = useState('dashboard'); // Track active section
 
   useEffect(() => {
     const fetchUserName = async () => {
@@ -23,7 +23,7 @@ const Dashboard = () => {
         console.error('Error fetching user data:', err);
       }
     };
-  
+
     fetchUserName();
   }, []);
 
@@ -32,7 +32,7 @@ const Dashboard = () => {
       await fetch('http://localhost:5000/auth/logout', {
         credentials: 'include',
       });
-      navigate('/');
+      window.location.href = '/';
     } catch (err) {
       console.error('Error logging out:', err);
     }
@@ -52,15 +52,21 @@ const Dashboard = () => {
         </div>
 
         <div className="nav-links">
-          <button className="nav-item active">
+          <button
+            className={`nav-item ${activeSection === 'dashboard' ? 'active' : ''}`}
+            onClick={() => setActiveSection('dashboard')}
+          >
             <LayoutDashboard className="nav-icon" />
             <span>Dashboard</span>
           </button>
 
-          <button className="nav-item" onClick={() => navigate('/patients')}>
+          <button
+            className={`nav-item ${activeSection === 'patients' ? 'active' : ''}`}
+            onClick={() => setActiveSection('patients')}
+          >
             <Users className="nav-icon" />
             <span>Patients</span>
-            </button>
+          </button>
 
           <button className="nav-item">
             <Wallet className="nav-icon" />
@@ -80,25 +86,31 @@ const Dashboard = () => {
       </div>
 
       <div className="main-content">
-        <div className="welcome-banner">
-          <div className="banner-content">
-            <h1>Good Morning, {userName ? userName : 'User'}</h1>
-            <p>Manage your hospital activities and patient records</p>
-          </div>
-          <button 
-            className="add-patient-btn"
-            onClick={() => setIsFormOpen(true)}
-          >
-            <UserPlus className="btn-icon" />
-            Add Patient
-          </button>
-        </div>
+        {activeSection === 'dashboard' ? (
+          <>
+            <div className="welcome-banner">
+              <div className="banner-content">
+                <h1>Good Morning, {userName ? userName : 'User'}</h1>
+                <p>Manage your hospital activities and patient records</p>
+              </div>
+              <button
+                className="add-patient-btn"
+                onClick={() => setIsFormOpen(true)}
+              >
+                <UserPlus className="btn-icon" />
+                Add Patient
+              </button>
+            </div>
 
-        {isFormOpen && (
-          <PatientForm 
-            isOpen={isFormOpen} 
-            onClose={() => setIsFormOpen(false)}
-          />
+            {isFormOpen && (
+              <PatientForm
+                isOpen={isFormOpen}
+                onClose={() => setIsFormOpen(false)}
+              />
+            )}
+          </>
+        ) : (
+          <Patients />
         )}
       </div>
     </div>
