@@ -2,11 +2,13 @@ import React from 'react';
 import './App.css';
 import Navbar from './Navbar';
 import Hero from './Hero';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Dashboard from './Dashboard';
 
-function App() {
+const Home = () => {
   return (
-    <div className="app">
-      <Navbar />
+    <>
+    <Navbar />
       <Hero />
       <div className="content-sections">
         <section className="services">
@@ -49,7 +51,20 @@ function App() {
           </div>
         </section>
       </div>
-    </div>
+    </>
+  );
+};
+
+function App() {
+  return (
+    <Router>
+      <div className="app">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

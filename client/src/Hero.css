@@ -1,7 +1,7 @@
 .hero {
     padding-top: 80px;
     min-height: 100vh;
-    background: linear-gradient(135deg, #4e54c8 0%, #8f94fb 100%);
+    background: linear-gradient(135deg, #4f54bf 0%, #3f45b8 100%);
     color: white;
     position: relative;
     overflow: hidden;
@@ -50,7 +50,7 @@
   }
   
   .read-more:hover {
-    background-color: #45a049;
+    background-color: #14b0cb;
   }
   
   .call-help {

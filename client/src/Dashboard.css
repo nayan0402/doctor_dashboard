@@ -1,0 +1,226 @@
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+    background-color: #f0f2f5;
+  }
+  
+  /* Sidebar Styles */
+  .sidebar {
+    width: 280px;
+    background-color: white;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100vh;
+  }
+  
+  .logo-section {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .logo-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #14b8a6;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .cross {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .brand-name {
+    font-weight: bold;
+    font-size: 18px;
+    color: #14b8a6;
+  }
+  
+  .tagline {
+    font-size: 10px;
+    color: #64748b;
+  }
+  
+  .nav-links {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-grow: 1;
+  }
+  
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: none;
+    background: none;
+    color: #64748b;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    text-align: left;
+  }
+  
+  .nav-item:hover {
+    background-color: #f1f5f9;
+    color: #14b8a6;
+  }
+  
+  .nav-item.active {
+    background-color: #14b8a6;
+    color: white;
+  }
+  
+  .nav-icon {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .logout-button {
+    margin: 20px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-radius: 8px;
+    border: 1px solid #ef4444;
+    background: none;
+    color: #ef4444;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .logout-button:hover {
+    background-color: #fee2e2;
+  }
+  
+  /* Main Content Styles */
+  .main-content {
+    flex-grow: 1;
+    margin-left: 280px;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  
+  .welcome-banner {
+    background-color: #14b8a6;
+    border-radius: 16px;
+    padding: 40px;
+    color: white;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+    background-image: 
+        linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255,255,255,.1) 1px, transparent 1px);
+    background-size: 40px 40px; /* Adjust the size of the square */
+    background-position: top left;
+}
+
+  
+  .banner-content {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .welcome-banner h1 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .welcome-banner p {
+    opacity: 0.9;
+    margin-bottom: 24px;
+  }
+  
+  .create-appointment-btn {
+    background-color: white;
+    color: #14b8a6;
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .create-appointment-btn:hover {
+    background-color: #f0fdfa;
+  }
+  
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  
+  .stat-card {
+    background-color: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  .stat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .stat-header h3 {
+    font-size: 18px;
+    color: #334155;
+  }
+  
+  .stat-trend {
+    font-size: 14px;
+    padding: 4px 8px;
+    border-radius: 16px;
+  }
+  
+  .stat-trend.positive {
+    color: #10b981;
+    background-color: #ecfdf5;
+  }
+  
+  .stat-trend.negative {
+    color: #ef4444;
+    background-color: #fee2e2;
+  }
+  
+  .stat-value {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+  
+  .stat-value .primary {
+    font-size: 32px;
+    font-weight: bold;
+    color: #334155;
+  }
+  
+  .stat-value .secondary {
+    font-size: 16px;
+    color: #94a3b8;
+  }
