@@ -1,218 +1,203 @@
 .navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: #4e54c8;
-    padding: 1rem 0;
-    transition: all 0.3s ease;
-    z-index: 1000;
-  }
-  
-  .navbar.scrolled {
-    background-color: white;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .navbar-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .logo {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  .logo-icon {
-    background-color: #2fe7d7;
-    color: white;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    font-size: 24px;
-  }
-  
-  .logo-text {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .brand-name {
-    font-weight: 700;
-    font-size: 1.2rem;
-    color: white;
-  }
-  
-  .navbar.scrolled .brand-name {
-    color: #333;
-  }
-  
-  .tagline {
-    font-size: 0.7rem;
-    color: #4CAF50;
-  }
-  
-  .nav-links {
-    display: flex;
-    gap: 2rem;
-  }
-  
-  .nav-links a {
-    text-decoration: none;
-    color: white;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: color 0.3s;
-  }
-  
-  .navbar.scrolled .nav-links a {
-    color: #333;
-  }
-  
-  .nav-links a:hover,
-  .nav-links a.active {
-    color: #4CAF50;
-  }
-  
-  .nav-actions {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-  }
-  
-  .search-icon {
-    cursor: pointer;
-    color: white;
-  }
-  
-  .navbar.scrolled .search-icon {
-    color: #666;
-  }
-  
-  .book-btn {
-    background-color: #ff6b6b;
-    color: white;
-    border: none;
-    padding: 0.8rem 1.5rem;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: background-color 0.3s;
-  }
-  
-  .book-btn:hover {
-    background-color: #ff5252;
-  }
-  
-  @media (max-width: 768px) {
-    .nav-links {
-      display: none;
-    }
-    
-    .navbar-container {
-      padding: 0 1rem;
-    }
-  }
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #4e54c8;
+  padding: 1rem 0;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
 
-  .auth-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  
-  .auth-modal-content {
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    width: 100%;
-    max-width: 400px;
-    position: relative;
-  }
-  
-  .auth-modal-content h2 {
-    margin-bottom: 1.5rem;
-    text-align: center;
-  }
-  
-  .auth-modal-content form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .auth-modal-content input {
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  .auth-modal-content button {
-    padding: 0.75rem;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+.navbar.scrolled {
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.logo-icon {
+  background-color: #2fe7d7;
+  color: white;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-size: 24px;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-name {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: white;
+}
+
+.navbar.scrolled .brand-name {
+  color: #333;
+}
+
+.tagline {
+  font-size: 0.7rem;
+  color: #4CAF50;
+}
+
+.nav-center {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.3s;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+.navbar.scrolled .nav-link {
+  color: #333;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #4CAF50;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.navbar.scrolled .nav-link:hover,
+.navbar.scrolled .nav-link.active {
+  background-color: rgba(76, 175, 80, 0.1);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.search-icon {
+  cursor: pointer;
+  color: white;
+  width: 20px;
+  height: 20px;
+}
+
+.navbar.scrolled .search-icon {
+  color: #666;
+}
+
+.google-login-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgb(244, 242, 242);
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-weight: 500;
+  color: #1a1a1a;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.google-login-btn:hover {
+  background-color: #e6e6e6;
+  transform: translateY(-1px);
+}
+
+.google-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-name {
+  color: white;
+  font-weight: 500;
+}
+
+.navbar.scrolled .user-name {
+  color: #333;
+}
+
+.logout-btn {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+}
+
+.logout-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.navbar.scrolled .logout-btn:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.logout-icon {
+  color: white;
+  width: 20px;
+  height: 20px;
+}
+
+.navbar.scrolled .logout-icon {
+  color: #666;
+}
+
+@media (max-width: 1024px) {
+  .navbar-container {
+    padding: 0 1rem;
   }
 
   .nav-link {
-    background: none;
-    border: none;
-    color: inherit;
-    cursor: pointer;
-    font-size: inherit;
-    font-family: inherit;
-    padding: 0.5rem 1rem;
-    text-transform: uppercase;
+    padding: 0.5rem;
   }
-  
-  .nav-link:hover {
-    color: #007bff;
+
+  .nav-actions {
+    gap: 1rem;
   }
-  
-  .nav-link.active {
-    color: #007bff;
-    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .nav-center {
+    display: none;
   }
-  
-  .auth-buttons {
-    display: flex;
-    gap: 0.5rem;
+
+  .navbar-container {
+    padding: 0 1rem;
   }
-  
-  .google-login-btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-weight: 500;
-    color: #757575;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .google-login-btn:hover {
-    background-color: #f5f5f5;
-  }
-  
-  .google-icon {
-    width: 18px;
-    height: 18px;
-  }
+}

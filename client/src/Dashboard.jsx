@@ -46,7 +46,7 @@ const Dashboard = () => {
             <span className="cross">+</span>
           </div>
           <div className="logo-text">
-            <span className="brand-name">INCARE</span>
+            <span className="brand-name">ANDREW HOSPITAL</span>
             <span className="tagline">MISSION IS LIFE</span>
           </div>
         </div>
@@ -82,7 +82,7 @@ const Dashboard = () => {
       <div className="main-content">
         <div className="welcome-banner">
           <div className="banner-content">
-            <h1>Good Morning {userName ? userName : 'User'}</h1>
+            <h1>Good Morning, {userName ? userName : 'User'}</h1>
             <p>Manage your hospital activities and patient records</p>
           </div>
         </div>

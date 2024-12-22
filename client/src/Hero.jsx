@@ -1,36 +1,55 @@
 import React from 'react';
+import { Phone } from 'lucide-react';
 import './Hero.css';
 
 const Hero = () => {
   return (
     <div className="hero">
+      {/* Background Elements */}
+      <div className="hero-bg">
+        <div className="doctor-overlay"></div>
+        <div className="hexagon hex1"></div>
+        <div className="hexagon hex2"></div>
+        <div className="hexagon hex3"></div>
+        <div className="hexagon hex4"></div>
+        <div className="wave wave1"></div>
+        <div className="wave wave2"></div>
+      </div>
+
       <div className="hero-content">
         <div className="hero-text">
-          <h1>Top Doctors Exist<br />In Our Hospital</h1>
-          <p>We provide all kinds of medical services to our patients according to their daily needs starting from special conditions</p>
+          <h1>Professional Healthcare for Your Family</h1>
+          <p>
+            Experience world-class healthcare services with our team of dedicated
+            medical professionals. We're committed to providing the highest quality
+            of care for you and your loved ones.
+          </p>
           <div className="hero-buttons">
-            <button className="read-more">Read More</button>
+            <button className="read-more">Learn More About Us</button>
             <div className="call-help">
-              <div className="phone-icon">📞</div>
+              <div className="phone-icon">
+                <Phone color="#4e54c8" size={20} />
+              </div>
               <div className="call-text">
-                <span>Call us for help</span>
-                <span className="phone-number">(44) 123 456 789</span>
+                <span>Need Help?</span>
+                <span className="phone-number">+1 234 567 8900</span>
               </div>
             </div>
           </div>
         </div>
+
         <div className="stats">
           <div className="stat-item">
-            <h3>30+</h3>
-            <p>Awards Win</p>
+            <h3>15k+</h3>
+            <p>Happy Patients</p>
           </div>
           <div className="stat-item">
-            <h3>100+</h3>
-            <p>Experience Members</p>
+            <h3>150+</h3>
+            <p>Expert Doctors</p>
           </div>
           <div className="stat-item">
-            <h3>15k</h3>
-            <p>Satisfied Clients</p>
+            <h3>50+</h3>
+            <p>Specializations</p>
           </div>
         </div>
       </div>
