@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { LayoutDashboard, Users, Wallet, HelpCircle, LogOut, UserPlus } from 'lucide-react';
-import './Dashboard.css';
 import PatientForm from './PatientForm';
-import Patients from './Patients'; // Import Patients component
+import Patients from './Patients';
+import Help from './Help';
+import './Dashboard.css';
 
 const Dashboard = () => {
   const [userName, setUserName] = useState('');
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('dashboard'); // Track active section
+  const [activeSection, setActiveSection] = useState('dashboard');
 
   useEffect(() => {
     const fetchUserName = async () => {
@@ -35,6 +36,42 @@ const Dashboard = () => {
       window.location.href = '/';
     } catch (err) {
       console.error('Error logging out:', err);
+    }
+  };
+
+  const renderMainContent = () => {
+    switch (activeSection) {
+      case 'dashboard':
+        return (
+          <>
+            <div className="welcome-banner">
+              <div className="banner-content">
+                <h1>Good Morning, {userName ? userName : 'User'}</h1>
+                <p>Manage your hospital activities and patient records</p>
+              </div>
+              <button
+                className="add-patient-btn"
+                onClick={() => setIsFormOpen(true)}
+              >
+                <UserPlus className="btn-icon" />
+                Add Patient
+              </button>
+            </div>
+
+            {isFormOpen && (
+              <PatientForm
+                isOpen={isFormOpen}
+                onClose={() => setIsFormOpen(false)}
+              />
+            )}
+          </>
+        );
+      case 'patients':
+        return <Patients />;
+      case 'help':
+        return <Help />;
+      default:
+        return null;
     }
   };
 
@@ -68,12 +105,18 @@ const Dashboard = () => {
             <span>Patients</span>
           </button>
 
-          <button className="nav-item">
+          <button 
+            className="nav-item"
+            onClick={() => setActiveSection('payment')}
+          >
             <Wallet className="nav-icon" />
             <span>Payment</span>
           </button>
 
-          <button className="nav-item">
+          <button 
+            className={`nav-item ${activeSection === 'help' ? 'active' : ''}`}
+            onClick={() => setActiveSection('help')}
+          >
             <HelpCircle className="nav-icon" />
             <span>Help</span>
           </button>
@@ -86,32 +129,7 @@ const Dashboard = () => {
       </div>
 
       <div className="main-content">
-        {activeSection === 'dashboard' ? (
-          <>
-            <div className="welcome-banner">
-              <div className="banner-content">
-                <h1>Good Morning, {userName ? userName : 'User'}</h1>
-                <p>Manage your hospital activities and patient records</p>
-              </div>
-              <button
-                className="add-patient-btn"
-                onClick={() => setIsFormOpen(true)}
-              >
-                <UserPlus className="btn-icon" />
-                Add Patient
-              </button>
-            </div>
-
-            {isFormOpen && (
-              <PatientForm
-                isOpen={isFormOpen}
-                onClose={() => setIsFormOpen(false)}
-              />
-            )}
-          </>
-        ) : (
-          <Patients />
-        )}
+        {renderMainContent()}
       </div>
     </div>
   );

@@ -6,8 +6,12 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
+const axios = require('axios');
+const Retell = require('retell-sdk'); // Import Retell SDK
+
 const User = require('./models/User');
 const Patient = require('./models/Patient');
+
 const app = express();
 const PORT = 5000;
 
@@ -84,6 +88,11 @@ passport.deserializeUser(async (id, done) => {
     }
 });
 
+// Retell AI client setup
+const retellClient = new Retell({
+    apiKey: "Bearer key_f72f9805830615815aec13579cf5", // Replace with your Retell API key
+});
+
 // Routes
 app.get('/auth/google', passport.authenticate('google', {
     scope: ['profile', 'email'],
@@ -113,7 +122,6 @@ app.get('/auth/logout', (req, res) => {
     });
 });
 
-// Patient Routes - Add these BEFORE the 404 handler
 app.post('/api/patients', async (req, res) => {
     console.log('Received patient data:', req.body); // Debug log
     console.log('Auth status:', req.isAuthenticated()); // Debug log
@@ -150,6 +158,43 @@ app.get('/api/patients', async (req, res) => {
         res.status(500).json({ error: 'Error fetching patients' });
     }
 });
+
+// Retell Web Call API Endpoint
+
+app.post('/create-web-call', async (req, res) => {
+    const { agent_id, metadata, retell_llm_dynamic_variables } = req.body;
+
+    // Prepare the payload for the API request
+    const payload = { agent_id };
+
+    // Conditionally add optional fields if they are provided
+    if (metadata) {
+        payload.metadata = metadata;
+    }
+
+    if (retell_llm_dynamic_variables) {
+        payload.retell_llm_dynamic_variables = retell_llm_dynamic_variables;
+    }
+
+    try {
+        const response = await axios.post(
+            'https://api.retellai.com/v2/create-web-call',
+            payload,
+            {
+                headers: {
+                    'Authorization': 'Bearer key_f72f9805830615815aec13579cf5', // Replace with your actual Bearer token
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
+
+        res.status(201).json(response.data);
+    } catch (error) {
+        console.error('Error creating web call:', error.response?.data || error.message);
+        res.status(500).json({ error: 'Failed to create web call' });
+    }
+});
+
 
 // 404 handler - Keep this as the last route
 app.use((req, res) => {
