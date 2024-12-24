@@ -1,47 +1,135 @@
 .payment-container {
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.payment-header {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    position: relative;
+  }
+  
+  .payment-title {
+    font-family: Georgia, serif;
+    font-size: 2.5rem;
+    color: #14b8a6;
+    text-align: left;
+    margin: 1rem;
+  }
+  
+  .payment-portal {
+    position: absolute;
+    top: 10rem;
+    left: 0;
+  }
+  
+  .payment-button {
+    position: absolute;
+    top: 0;
+    right: 0;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
-}
-
-.payment-header h2 {
-    margin: 0;
-    font-size: 1.5rem;
-}
-
-.make-payment-btn {
-    padding: 10px 20px;
-    background-color: #007bff;
+    gap: 0.5rem;
+    padding: 0.75rem 2rem;
+    background-color: #2563EB;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 0.5rem;
     font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.make-payment-btn:disabled {
-    background-color: #cccccc;
+    transition: all 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .payment-button:hover {
+    background-color: white;
+    color: #2563EB;
+    border: 1px solid #2563EB;
+  }
+  
+  .payment-button:disabled {
+    opacity: 0.5;
     cursor: not-allowed;
-}
-
-.make-payment-btn:hover:not(:disabled) {
-    background-color: #0056b3;
-}
-
-.payment-content {
-    font-size: 1rem;
-    color: #555;
-}
-
-.payment-content p {
-    margin: 10px 0;
-}
+  }
+  
+  .error-message {
+    color: #EF4444;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  .payment-table-container {
+    overflow-x: auto;
+  }
+  
+  .payment-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .payment-table th {
+    background-color: #F9FAFB;
+    padding: 0.75rem 1.5rem;
+    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #6B7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  
+  .payment-table td {
+    padding: 1rem 1.5rem;
+    font-size: 0.875rem;
+    color: #374151;
+    border-top: 1px solid #E5E7EB;
+  }
+  
+  .payment-table tr:hover {
+    background-color: #F9FAFB;
+  }
+  
+  .status-badge {
+    display: inline-flex;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  
+  .status-succeeded {
+    background-color: #DEF7EC;
+    color: #046C4E;
+  }
+  
+  .status-pending {
+    background-color: #FEF3C7;
+    color: #92400E;
+  }
+  
+  .status-failed {
+    background-color: #FEE2E2;
+    color: #991B1B;
+  }
+  
+  .table-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .control-button {
+    padding: 0.5rem 1rem;
+    background-color: #2563EB;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .control-button:hover {
+    background-color: #1D4ED8;
+  }
+  

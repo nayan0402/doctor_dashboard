@@ -197,37 +197,42 @@ app.post('/create-web-call', async (req, res) => {
     }
 });
 
-// const express = require('express');
 app.post('/create-checkout-session', async (req, res) => {
     try {
-      const userId = req.user?._id; // Ensure the user is authenticated
-      if (!userId) {
-        return res.status(401).json({ error: 'User not authenticated' });
-      }
-  
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
         line_items: [
           {
-            price: 'price_1QZVIVAoi0w8LfPM2UHZtB3o', // Replace with your actual price ID
+            price_data: {
+              currency: 'usd',
+              product_data: {
+                name: 'Platform Payement',
+              },
+              unit_amount: 10000, 
+            },
             quantity: 1,
           },
         ],
         mode: 'payment',
-        success_url: `http://localhost:5000?success=true`,
-        cancel_url: `http://localhost:5000?canceled=true`,
-        metadata: {
-          userId: userId, // Include user ID for tracking payments
-        },
+        success_url: `http://localhost:5174/dashboard?success=true`,
+        cancel_url: `http://localhost:5174/dashboard?canceled=true`,
       });
   
       res.json({ url: session.url });
     } catch (err) {
-      console.error('Error creating Stripe session:', err.message);
-      res.status(500).json({ error: 'Failed to create checkout session', details: err.message });
+      console.error('Stripe Error:', err);
+      res.status(500).json({ error: err.message });
     }
   });
 
+  app.get('/payment-intents', async (req, res) => {
+    try {
+        const paymentIntents = await stripe.paymentIntents.list({ limit: 20 }); // Adjust the limit as needed
+        res.json(paymentIntents.data); // Send payment intents data
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch payment intents' });
+    }
+});
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
