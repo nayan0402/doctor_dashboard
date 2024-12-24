@@ -98,7 +98,7 @@ const Patients = () => {
       <div className="header-section">
         <div className="header">
           <h1 className="patients-title">Patient Record</h1>
-          <p className="subtitle">Here is the record of all your patients {doctorName}.</p>
+          <p className="subtitle">Here is the record of all your patients.</p>
         </div>
         <input
           type="text"

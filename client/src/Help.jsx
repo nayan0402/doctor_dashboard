@@ -1,14 +1,45 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { RetellWebClient } from "retell-client-js-sdk";
+import "./Help.css";
 
 const agentId = "agent_3f83642486bb9073b1d2e36ca2";
-
 const retellWebClient = new RetellWebClient();
 
 const Help = () => {
   const [isCalling, setIsCalling] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const [showInitialBot, setShowInitialBot] = useState(true);
+  const [initialMessage, setInitialMessage] = useState(""); // For typing effect
+  const [isGenerating, setIsGenerating] = useState(false); // For tracking message generation
+  const messagesEndRef = useRef(null);
 
-  // Initialize the SDK
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, isGenerating]);
+
+  // Typing effect for "Hello, I am Myra"
+  useEffect(() => {
+    if (showInitialBot) {
+      let typingIndex = 0;
+      const fullMessage = "Hello, I am Myra, your personal assistant. Please click on me to initiate a call.";
+      setInitialMessage(""); // Clear previous message
+
+      const typingInterval = setInterval(() => {
+        setInitialMessage((prev) => prev + fullMessage[typingIndex]);
+        typingIndex++;
+        if (typingIndex >= fullMessage.length) {
+          clearInterval(typingInterval);
+        }
+      }, 50); // Typing speed in milliseconds
+
+      return () => clearInterval(typingInterval);
+    }
+  }, [showInitialBot]);
+
   useEffect(() => {
     retellWebClient.on("call_started", () => {
       console.log("call started");
@@ -17,40 +48,22 @@ const Help = () => {
     retellWebClient.on("call_ended", () => {
       console.log("call ended");
       setIsCalling(false);
+      setShowInitialBot(true); // Show hover bot after call ends
     });
 
-    // When agent starts talking for the utterance
-    // useful for animation
-    retellWebClient.on("agent_start_talking", () => {
-      console.log("agent_start_talking");
-    });
-
-    // When agent is done talking for the utterance
-    // useful for animation
-    retellWebClient.on("agent_stop_talking", () => {
-      console.log("agent_stop_talking");
-    });
-
-    // Real time pcm audio bytes being played back, in format of Float32Array
-    // only available when emitRawAudioSamples is true
-    retellWebClient.on("audio", (audio) => {
-      // console.log(audio);
-    });
-
-    // Update message such as transcript
-    // You can get transcrit with update.transcript
-    // Please note that transcript only contains last 5 sentences to avoid the payload being too large
     retellWebClient.on("update", (update) => {
-      // console.log(update);
-    });
-
-    retellWebClient.on("metadata", (metadata) => {
-      // console.log(metadata);
+      if (update.transcript && Array.isArray(update.transcript)) {
+        const updatedMessages = update.transcript.map((line) => ({
+          role: line.role,
+          content: line.content,
+        }));
+        setMessages(updatedMessages);
+        setIsGenerating(false); // Stop showing generating state
+      }
     });
 
     retellWebClient.on("error", (error) => {
       console.error("An error occurred:", error);
-      // Stop the call
       retellWebClient.stopCall();
     });
   }, []);
@@ -59,14 +72,18 @@ const Help = () => {
     if (isCalling) {
       retellWebClient.stopCall();
     } else {
-      const registerCallResponse = await registerCall(agentId);
-      if (registerCallResponse.access_token) {
-        retellWebClient
-          .startCall({
+      try {
+        const registerCallResponse = await registerCall(agentId);
+        if (registerCallResponse.access_token) {
+          await retellWebClient.startCall({
             accessToken: registerCallResponse.access_token,
-          })
-          .catch(console.error);
-        setIsCalling(true); // Update button to "Stop" when conversation starts
+          });
+          setIsCalling(true);
+          setShowInitialBot(false); // Hide initial bot during call
+          setIsGenerating(true); // Start showing generating state
+        }
+      } catch (error) {
+        console.error("Error starting the call:", error);
       }
     }
   };
@@ -78,32 +95,64 @@ const Help = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          agent_id: agentId,
-        }),
+        body: JSON.stringify({ agent_id: agentId }),
       });
-  
+
       if (!response.ok) {
-        const errorText = await response.text();  // Get the response text
+        const errorText = await response.text();
         throw new Error(`Error: ${response.status} - ${errorText}`);
       }
-  
-      const data = await response.json();
-      return data;
+
+      return await response.json();
     } catch (err) {
-      console.error('Error during registration:', err);
+      console.error("Error during registration:", err);
       throw new Error(err);
     }
   }
-  
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <button onClick={toggleConversation}>
-          {isCalling ? "Stop" : "Start"}
+    <div className="help-container">
+      {/* Chat Messages */}
+      <div className="chat-messages">
+        {messages.map((message, index) => (
+          <div key={index} className={`chat-message ${message.role}`}>
+            {message.role === "assistant" && <div className="bot-avatar" />}
+            <div className="message-content">{message.content}</div>
+          </div>
+        ))}
+
+        {/* Display AI generating message state */}
+        {isGenerating && (
+          <div className="chat-message assistant">
+            <div className="bot-avatar" />
+            <div className="message-content">
+              <span className="typing-indicator">
+                <span>.</span>
+                <span>.</span>
+                <span>.</span>
+              </span>
+            </div>
+          </div>
+        )}
+        <div ref={messagesEndRef} />
+      </div>
+
+      {/* Bot Hover Prompt */}
+      {showInitialBot && (
+        <div className="initial-bot">
+          <div className="bot-avatar" onClick={toggleConversation} />
+          <div className="bot-message-box">
+            {initialMessage || "Click here to initiate a call."}
+          </div>
+        </div>
+      )}
+
+      {/* End Call Button */}
+      {isCalling && (
+        <button className="end-call-btn" onClick={toggleConversation}>
+          <i className="fas fa-phone-slash"></i> Hang Up
         </button>
-      </header>
+      )}
     </div>
   );
 };

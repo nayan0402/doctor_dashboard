@@ -7,7 +7,9 @@ const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
 const axios = require('axios');
-const Retell = require('retell-sdk'); // Import Retell SDK
+const Retell = require('retell-sdk');
+const stripe = require('stripe')('sk_test_51QZ4MfAoi0w8LfPMtqtpsrJw3pehm2RVn0ZE4hFk7c7QWIIgiVJg0TDb2A9PoTCPx42RgGRMLScioVETdbMaViri001oCUBBR5');
+
 
 const User = require('./models/User');
 const Patient = require('./models/Patient');
@@ -195,11 +197,36 @@ app.post('/create-web-call', async (req, res) => {
     }
 });
 
-
-// 404 handler - Keep this as the last route
-app.use((req, res) => {
-    res.status(404).json({ error: 'Not Found' });
-});
+// const express = require('express');
+app.post('/create-checkout-session', async (req, res) => {
+    try {
+      const userId = req.user?._id; // Ensure the user is authenticated
+      if (!userId) {
+        return res.status(401).json({ error: 'User not authenticated' });
+      }
+  
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items: [
+          {
+            price: 'price_1QZVIVAoi0w8LfPM2UHZtB3o', // Replace with your actual price ID
+            quantity: 1,
+          },
+        ],
+        mode: 'payment',
+        success_url: `http://localhost:5000?success=true`,
+        cancel_url: `http://localhost:5000?canceled=true`,
+        metadata: {
+          userId: userId, // Include user ID for tracking payments
+        },
+      });
+  
+      res.json({ url: session.url });
+    } catch (err) {
+      console.error('Error creating Stripe session:', err.message);
+      res.status(500).json({ error: 'Failed to create checkout session', details: err.message });
+    }
+  });
 
 // Start the server
 app.listen(PORT, () => {

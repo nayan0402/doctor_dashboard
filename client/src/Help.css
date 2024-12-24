@@ -1,0 +1,137 @@
+/* Bot Avatar */
+.bot-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: url('/doctor.jpg') no-repeat center center;
+    background-size: cover;
+    margin-right: 10px;
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.bot-avatar:hover {
+    transform: scale(1.1);
+}
+
+/* Initial Bot Prompt */
+.initial-bot {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-top: 10px;
+    gap: 10px;
+}
+
+/* Bot Message Box */
+.bot-message-box {
+    background-color: #e0e0e0;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-size: 14px;
+    max-width: 300px;
+    color: #333;
+    transition: transform 0.2s ease-in-out;
+}
+
+.initial-bot:hover .bot-avatar {
+    transform: scale(1.1);
+}
+
+/* Chat Messages */
+.chat-messages {
+    padding: 20px;
+    overflow-y: auto;
+    height: calc(100vh - 100px);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.chat-message {
+    display: flex;
+    align-items: flex-start;
+}
+
+.chat-message.user {
+    justify-content: flex-end;
+}
+
+.chat-message.assistant {
+    justify-content: flex-start;
+}
+
+.message-content {
+    max-width: 60%;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-size: 16px;
+    display: inline-block;
+}
+
+/* User Message Styling */
+.chat-message.user .message-content {
+    background-color: #0078ff;
+    color: white;
+    text-align: right;
+}
+
+/* Bot Message Styling */
+.chat-message.assistant .message-content {
+    background-color: #0dc1a0;
+    color: black;
+    margin-left: 50px; /* Space for bot avatar */
+}
+
+/* Typing Indicator */
+.typing-indicator span {
+    display: inline-block;
+    animation: typing 1.5s infinite;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typing {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/* End Call Button */
+.end-call-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background-color: #ea1111;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    gap: 10px;
+}
+
+.end-call-btn i {
+    font-size: 20px;
+}
+
+.end-call-btn:hover {
+    background-color: #0e2b96;
+}

@@ -4,6 +4,7 @@ import PatientForm from './PatientForm';
 import Patients from './Patients';
 import Help from './Help';
 import './Dashboard.css';
+import Payment from './Payment';
 
 const Dashboard = () => {
   const [userName, setUserName] = useState('');
@@ -26,6 +27,15 @@ const Dashboard = () => {
     };
 
     fetchUserName();
+  }, []);
+
+  // Check URL parameters for success or canceled payment
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const paymentSuccess = params.get('success');
+    if (paymentSuccess === 'true') {
+      setActiveSection('payment');
+    }
   }, []);
 
   const handleLogout = async () => {
@@ -70,6 +80,8 @@ const Dashboard = () => {
         return <Patients />;
       case 'help':
         return <Help />;
+      case 'payment':
+        return <Payment />;
       default:
         return null;
     }
@@ -106,7 +118,7 @@ const Dashboard = () => {
           </button>
 
           <button 
-            className="nav-item"
+            className={`nav-item ${activeSection === 'payment' ? 'active' : ''}`}
             onClick={() => setActiveSection('payment')}
           >
             <Wallet className="nav-icon" />
